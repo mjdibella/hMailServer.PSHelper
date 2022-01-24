@@ -31,7 +31,6 @@ function Receive-hMailRawMessage {
         [Parameter(ValueFromPipeline)][string[]]$messageStrings,    
         [Parameter(Mandatory=$true)][string[]]$envelopeRecipients,
         [Parameter(Mandatory=$false)][string[]]$envelopeSender
-
     )
     begin {
     }
