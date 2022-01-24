@@ -1,0 +1,17 @@
+Connect-hMailServer: connect to hMailServer instance and save credientials in registry for autoconnect on module import
+	-username mandatory
+	-password mandatory
+
+Disconnect-hMailServer: end connection to hMailServer instance and delete credentials from registry
+
+Get-hMailServer: returns the hMailServer session variable for direct access to the hMailServer COM methods and properties
+
+Receive-hMailRawMessage: processes a string array from the pipeline containing one or more complete email messages to process through the hMailServer MTA; messages are routed using the provided addresses as BCCs; routing headers are updated
+	-envelopeRecipients: array of one or more addresses to route the message to
+	-envelopeSender
+: sets the envelope sender
+, default is to use Return-Path: if present, otherwise use From:
+
+Write-hMailRawMessageToMailbox: processes a string array from the pipeline containing one or more complete email messages to place in the specified mailbox folder, bypassing the MTA
+	-mailbox mandatory, the address of the mailbox to place the message
+	-folder optional, the name of the IMAP folder to place the message, default is INBOX

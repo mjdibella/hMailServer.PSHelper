@@ -81,17 +81,27 @@ function Write-hMailRawMessageToMailbox {
         $domainObject = $hMailServer.application.domains.itemByName($domain)
         $mailboxObject = $domainObject.accounts.itemByAddress($mailbox)
         $folderObject = $mailboxObject.IMAPFolders.itemByName($folder)
+        $count = 0
     }
     process {
         if ($_) {
             foreach ($messageString in $messageStrings) {
-                $messageObject = $folderObject.messages.Add()
+                $messageObject = $folderObject.Messages.Add()
                 $messageObject.Save()
                 $messageFile = $messageObject.FileName
                 $messageString | Out-File -filePath $messageFile -encoding ASCII
         		$messageObject.RefreshContent()
     			$messageObject.Save()
-                $messageObject
+                $messageObject.Copy($folderObject.ID)
+                $count++
+                $resultObject = New-Object PSObject
+                $resultObject | Add-Member Noteproperty Count $count
+                $resultObject | Add-Member Noteproperty Message-Id $messageObject.Headers.ItemByName("Message-ID").Value
+                $resultObject | Add-Member Noteproperty Date $messageObject.Headers.ItemByName("Date").Value
+                $resultObject | Add-Member Noteproperty From $messageObject.Headers.ItemByName("From").Value
+                $resultObject | Add-Member Noteproperty Subject $messageObject.Headers.ItemByName("Subject").Value
+                $resultObject
+            	$folderObject.Messages.DeleteByDBID($messageObject.ID)            
             }
         }
     }

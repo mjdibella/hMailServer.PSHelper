@@ -1,0 +1,2 @@
+Create new message from email.eml and place in INBOX
+[System.IO.File]::ReadAllText("C:\temp\email.eml") | Write-hMailRawMessageToMailbox -mailbox michael@archive.dibella.net
