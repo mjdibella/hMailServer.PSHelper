@@ -13,7 +13,6 @@ function Connect-hMailServer {
         New-ItemProperty -Path $hMailServer.registryURL -Name password -Value $password -Force | Out-Null
         write-host "Connected to hMailServer`n"
     }
-
 }
 
 function Disconnect-hMailServer {
