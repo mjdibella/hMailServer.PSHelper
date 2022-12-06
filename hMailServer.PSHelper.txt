@@ -8,9 +8,7 @@ Get-hMailServer: returns the hMailServer session variable for direct access to t
 
 Receive-hMailRawMessage: processes a string array from the pipeline containing one or more complete email messages to process through the hMailServer MTA; messages are routed using the provided addresses as BCCs; routing headers are updated
 	-envelopeRecipients: array of one or more addresses to route the message to
-	-envelopeSender
-: sets the envelope sender
-, default is to use Return-Path: if present, otherwise use From:
+	-envelopeSender: sets the envelope sender, default is to use Return-Path: if present, otherwise use From:
 
 Write-hMailRawMessageToMailbox: processes a string array from the pipeline containing one or more complete email messages to place in the specified mailbox folder, bypassing the MTA
 	-mailbox mandatory, the address of the mailbox to place the message
