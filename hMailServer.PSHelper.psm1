@@ -40,7 +40,7 @@ function Receive-hMailRawMessage {
                 $messageObject = New-Object -ComObject hMailServer.Message
                 $messageFile = $messageObject.FileName
                 $messageString | Out-File -filePath $messageFile -encoding ASCII
-        		$messageObject.RefreshContent()
+                $messageObject.RefreshContent()
                 if (-not $envelopeSender) {
                     $originalSender = $messageObject.HeaderValue("Return-Path")
                     if ($originalSender -eq "") {
@@ -52,13 +52,12 @@ function Receive-hMailRawMessage {
                 }
 		        $originalTo = $messageObject.HeaderValue("To")
 		        $originalCC = $messageObject.HeaderValue("CC")
-		        $origionalFrom = $messageObject.HeaderValue("From")
 		        $messageObject.ClearRecipients()
         		foreach ($envelopeRecipient in $envelopeRecipients) {
     				$messageObject.AddRecipient("", $envelopeRecipient)
                 }
     			$messageObject.HeaderValue("To") = $originalTo
-			    $messageObject.HeaderValue("CC") = $originalCC
+                $messageObject.HeaderValue("CC") = $originalCC
     			$messageObject.Save()
             }
         }
